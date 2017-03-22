@@ -11,6 +11,12 @@ def decode(str_num, base):
     """
     assert 2 <= base <= 36
     # TODO: Decode number
+    # Handles Binary
+    for num, exponent in zip(str_num, reversed(range(len(str_num)))):
+        value = int(num) * (2 ** exponent)
+        conversions.append(value)
+    decoded = sum(conversions)
+    return decoded
 
 def encode(num, base):
     """
@@ -20,6 +26,15 @@ def encode(num, base):
     """
     assert 2 <= base <= 36
     # TODO: Encode number
+    # Handles Binary
+    conversion = []
+    while num is not 0:
+        remainder = num % base
+        conversion.append(str(remainder))
+        num = num / base
+    conversion = conversion[::-1]
+    conversion = "".join(conversion)
+    return conversion
 
 def convert(str_num, base1, base2):
     """
@@ -45,3 +60,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # decode('10', 2)
+    # encode(10, 2)
