@@ -1,7 +1,5 @@
 #!python
-
 import string
-
 
 def decode(str_num, base):
     """
@@ -11,11 +9,29 @@ def decode(str_num, base):
     """
     assert 2 <= base <= 36
     # TODO: Decode number
+    # Anything Base 10 or smaller uses digits
+    # Anything base 11 or larger uses alpha numeric chrs
     # Handles Binary
-    for num, exponent in zip(str_num, reversed(range(len(str_num)))):
-        value = int(num) * (2 ** exponent)
-        conversions.append(value)
-    decoded = sum(conversions)
+    str_num = str_num.lower()
+    conversions = []
+    if str_num.isdigit() and base < 11:
+        for num, exponent in zip(str_num, reversed(range(len(str_num)))):
+            value = int(num) * (2 ** exponent)
+            conversions.append(value)
+        decoded = sum(conversions)
+        print(decoded)
+    else:
+        alphabet = list(string.ascii_lowercase)
+        for num, exponent in zip(str_num, reversed(range(len(str_num)))):
+            if num in alphabet:
+                letter_value = 10 + alphabet.index(num)
+                conversions.append(letter_value)
+            else:
+                value = int(num) * (2 ** exponent)
+                conversions.append(value)
+        decoded = sum(conversions)
+        print(decoded)
+
     return decoded
 
 def encode(num, base):
@@ -43,7 +59,10 @@ def convert(str_num, base1, base2):
     assert 2 <= base1 <= 36
     assert 2 <= base2 <= 36
     # TODO: Convert number
-
+    converted = decode(str_num, base1)
+    converted = encode(converted, base2)
+    print(converted)
+    return converted
 
 def main():
     import sys
@@ -59,6 +78,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
-    # decode('10', 2)
+    # main()
+    decode('10', 2)
     # encode(10, 2)
+    # convert('1010', 2, 3)
