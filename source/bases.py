@@ -16,22 +16,20 @@ def decode(str_num, base):
     conversions = []
     if str_num.isdigit() and base < 11:
         for num, exponent in zip(str_num, reversed(range(len(str_num)))):
-            value = int(num) * (2 ** exponent)
+            value = int(num) * (base ** exponent)
             conversions.append(value)
-        decoded = sum(conversions)
-        print(decoded)
     else:
         alphabet = list(string.ascii_lowercase)
+        value = None
         for num, exponent in zip(str_num, reversed(range(len(str_num)))):
             if num in alphabet:
-                letter_value = 10 + alphabet.index(num)
-                conversions.append(letter_value)
+                value = 10 + alphabet.index(num)
+                value = value * (base ** exponent)
             else:
-                value = int(num) * (2 ** exponent)
-                conversions.append(value)
-        decoded = sum(conversions)
-        print(decoded)
+                value = int(num) * (base ** exponent)
+            conversions.append(value)
 
+    decoded = sum(conversions)
     return decoded
 
 def encode(num, base):
@@ -46,6 +44,10 @@ def encode(num, base):
     conversion = []
     while num is not 0:
         remainder = num % base
+        if base > 10 and remainder > 9:
+            alphabet = list(string.ascii_lowercase)
+            remainder -= 10
+            remainder = alphabet[remainder]
         conversion.append(str(remainder))
         num = num / base
     conversion = conversion[::-1]
@@ -61,7 +63,6 @@ def convert(str_num, base1, base2):
     # TODO: Convert number
     converted = decode(str_num, base1)
     converted = encode(converted, base2)
-    print(converted)
     return converted
 
 def main():
@@ -78,7 +79,7 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
-    decode('10', 2)
-    # encode(10, 2)
-    # convert('1010', 2, 3)
+    main()
+    # print(decode('ff', 16))
+    # print(encode(10, 16))
+    # print(convert('ff', 16, 2))
