@@ -8,15 +8,25 @@ def factorial(n):
     otherwise raises ValueError for n < 0 or non-integer n"""
     # implement factorial_iterative and factorial_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    # return factorial_iterative(n)
-    return factorial_recursive(n)
+    return factorial_iterative(n)
+    # return factorial_recursive(n)
 
 
 def factorial_iterative(n):
     # TODO: implement the factorial function iteratively here
-    pass
+    # pass
     # once implemented, change factorial (above) to call factorial_iterative
     # to verify that your iterative implementation passes all tests below
+    factorial = 1
+    if not isinstance(n, int):
+        raise ValueError('function undefined for float')
+    elif n < 0:
+        raise ValueError('function undefined for n < 0')
+    else:
+        for num in range(1, n+1):
+            factorial = factorial * num
+
+    return factorial
 
 
 def factorial_recursive(n):
@@ -45,3 +55,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # print(factorial_iterative(-1.1))
