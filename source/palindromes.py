@@ -19,6 +19,21 @@ def is_palindrome_iterative(text):
     pass
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
+    if len(text) <= 1:
+        return True
+    else:
+        first_half = text[:len(text)/2]
+        if len(text) % 2 is 0:
+            second_half = text[len(text)/2:]
+        else:
+            second_half = text[len(text)/2 + 1:]
+        second_half = list(second_half)
+        second_half.reverse()
+        second_half = ''.join(second_half)
+        if first_half == second_half:
+            return True
+        return False
+
 
 
 def is_palindrome_recursive(text, left=None, right=None):
@@ -43,4 +58,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    print(is_palindrome_iterative('racecar'))
