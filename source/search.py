@@ -44,10 +44,46 @@ def binary_search_iterative(array, item):
     # to verify that your iterative implementation passes all tests below
 
     # mid_index = len(array)/2 + (len(array) % 2)
-    # if item is array[mid_index]:
-    #     return array.index(item)
-    # elif item < array[mid_index]:
+    left = array[:len(array)/2]
+    right = array[len(array)/2:]
+    center = right[0] # Set center point
 
+    print('left: ', left)
+    print('right: ', right)
+    print('center: ', center)
+
+    if not item < array[0] and not item > array[-1]: # if item isn't smaller than smallest value and isn't larger than largest value
+        found_item = None
+        while found_item is None:
+            if item is center or item is array[0] or item is array[-1]: # Early exit if we get lucky
+                print('running is')
+                found_item = array.index(item)
+            elif item < center: # Check out left branch
+                print('running <')
+                if len(left) is 1: # Check if its value matches our search term, and exit.
+                    if left[0] is item:
+                        found_item = array.index(item)
+                    return None
+                else:
+                    right = left[len(left)/2:]
+                    left = left[:len(left)/2]
+                    center = right[0]
+                    print('left: ', left)
+                    print('right: ', right)
+                    print('center: ', center)
+            elif item >= center: # Check out left branch
+                print('running >')
+                if len(right) is 1: # Check if its value matches our search term, and exit.
+                    if right[0] is item:
+                        found_item = array.index(item)
+                    return None
+                else:
+                    left = right[:len(right)/2]
+                    right = right[len(right)/2:]
+                    center = right[0]
+        return found_item
+    else:
+        return None
 
 
 def binary_search_recursive(array, item, left=None, right=None):
