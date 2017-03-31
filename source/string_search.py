@@ -14,16 +14,21 @@ def find_iterative(string, pattern):
     # TODO: implement the find_iterative function iteratively here
     # once implemented, change find to call find_iterative
     # to verify that your iterative implementation passes all tests
-    string = string.lower()
+    # string = string.lower()
+    print('start')
     position = 0
-    for char in enumerate(string):
-        print(char, pattern[position])
-        if char[1] is pattern[position]:
+    index = 0
+    while index < len(string):
+        print(position)
+        print(index, string[index], pattern[position])
+        if string[index] is pattern[position]:
             if position is len(pattern)-1:
                 return True
             position += 1
         else:
             position = 0
+            index -= position
+        index += 1
     return False
 
 
