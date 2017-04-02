@@ -11,7 +11,6 @@ class LinkedStack(object):
         """Initialize this stack and push the given items, if any"""
         # Initialize a new linked list to store the items
         self.list = LinkedList()
-        self.size = 0
         if iterable:
             for item in iterable:
                 self.push(item)
@@ -23,7 +22,7 @@ class LinkedStack(object):
     def is_empty(self):
         """Return True if this stack is empty, or False otherwise"""
         # TODO: Check if empty
-        return self.size is 0
+        return self.list.size is 0
 
     def length(self):
         """Return the number of items in this stack"""
@@ -33,8 +32,7 @@ class LinkedStack(object):
     def push(self, item):
         """Insert the given item on the top of this stack"""
         # TODO: Push given item
-        self.list.append(item)
-        self.size += 1
+        self.list.prepend(item)
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
@@ -42,7 +40,7 @@ class LinkedStack(object):
         # TODO: Return top item, if any
         if self.is_empty():
             return None
-        return self.list.tail.data
+        return self.list.head.data
 
     def pop(self):
         """Remove and return the item on the top of this stack,
@@ -50,9 +48,8 @@ class LinkedStack(object):
         # TODO: Remove and return top item, if any
         if self.is_empty():
             raise ValueError('Stack is empty')
-        item = self.list.tail.data
+        item = self.list.head.data
         self.list.delete(item)
-        self.size -= 1
         return item
 
 
@@ -85,7 +82,7 @@ class ArrayStack(object):
     def push(self, item):
         """Insert the given item on the top of this stack"""
         # TODO: Insert given item
-        self.list.insert(0, item)
+        self.list.append(item)
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
@@ -93,7 +90,7 @@ class ArrayStack(object):
         # TODO: Return top item, if any
         if self.is_empty():
             return None
-        return self.list[0]
+        return self.list[-1]
 
     def pop(self):
         """Remove and return the item on the top of this stack,
@@ -101,8 +98,8 @@ class ArrayStack(object):
         # TODO: Remove and return top item, if any
         if self.is_empty():
             raise ValueError('Stack is empty')
-        item = self.list[0]
-        del self.list[0]
+        item = self.list[-1]
+        del self.list[-1]
         return item
 
 
