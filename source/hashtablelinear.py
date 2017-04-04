@@ -116,15 +116,22 @@ class HashTable(object):
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
-        # Find the entry with the given key in that bucket, if one exists
-        # Check if an entry with the given key exists in that bucket
-        entry = bucket.find(lambda (k, v): k == key)
-        if entry is not None:  # Found
-            # In this case, the given key's value is being updated
-            # Remove the old key-value entry from the bucket first
-            bucket.delete(entry)
-            self.size -= 1
-        # Insert the new key-value entry into the bucket in either case
+        # Check if the bucket is empty
+        if not bucket.is_empty():
+            # Find the entry with the given key in that bucket, if one exists
+            # Check if an entry with the given key exists in that bucket
+            entry = bucket.find(lambda (k, v): k == key)
+            if entry is not None:  # Found
+                # In this case, the given key's value is being updated
+                # Remove the old key-value entry from the bucket first
+                bucket.delete(entry)
+                self.size -= 1
+            else:  # Not Found
+                while index < len(self.buckets) and self.buckets[index].size is not 0:
+                    index += 1
+                if index is len(self.buckets)-1:
+                    self.buckets.append(LinkedList())
+        # Insert the new key-value entry into an empty bucket in either case
         bucket.append((key, value))
         self.size += 1
         # TODO: Check if the load factor exceeds a threshold such as 0.75
