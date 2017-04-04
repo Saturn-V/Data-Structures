@@ -44,3 +44,43 @@ class HashSetTest(unittest.TestCase):
         with self.assertRaises(KeyError):
             hs.remove('D') # Key never existed
             hs.remove('A') # Key no longer exists
+
+    def test_union(self):
+        data_a = ['A', 'B', 'C']
+        hs_a = HashSet(data_a)
+        data_b = ['D', 'E', 'F']
+        hs_b = HashSet(data_b)
+        union_hs = hs_a.union(hs_b)
+        assert union_hs.contains('A') == True
+        assert union_hs.contains('B') == True
+        assert union_hs.contains('C') == True
+        assert union_hs.contains('D') == True
+        assert union_hs.contains('E') == True
+        assert union_hs.contains('F') == True
+
+    def test_intersection(self):
+        data_a = ['A', 'B', 'C', 'D']
+        hs_a = HashSet(data_a)
+        data_b = ['C', 'D', 'E', 'F']
+        hs_b = HashSet(data_b)
+        intersection_hs = hs_a.intersection(hs_b)
+        assert intersection_hs.contains('C') == True
+        assert intersection_hs.contains('D') == True
+
+    def test_difference(self):
+        data_a = ['A', 'B', 'C', 'D']
+        hs_a = HashSet(data_a)
+        data_b = ['C', 'D', 'E', 'F']
+        hs_b = HashSet(data_b)
+        difference_set = hs_a.difference(hs_b)
+        assert difference_set.contains('A') == True
+        assert difference_set.contains('B') == True
+        assert difference_set.contains('E') == True
+        assert difference_set.contains('F') == True
+
+    def test_is_subset(self):
+        data = ['A', 'B', 'C', 'D', 'E', 'F']
+        hs = HashSet(data)
+        sub_data = ['C', 'D']
+        sub_hs = HashSet(sub_data)
+        assert hs.is_subset(sub_hs) == True

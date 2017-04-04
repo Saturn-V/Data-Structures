@@ -35,16 +35,35 @@ class HashSet(object):
 
     def union(self, other_set):
         """Returns the union of other_set and this set"""
-        pass
+        union_set = self.ht
+        other_set_items = other_set.ht.items()
+        for item in other_set_items:
+            union_set.set(item[0], True)
+        return union_set
 
     def intersection(self, other_set):
         """Returns the intersection of other_set and this set, if any elements are shared."""
-        pass
+        intersection_set = HashTable()
+        for item in self.ht.items():
+            if other_set.contains(item[0]):
+                intersection_set.set(item[0], True)
+        return intersection_set
 
     def difference(self, other_set):
         """Returns the differemce of other_set and this set, if any elements are not shared."""
-        pass
+        difference_set = HashTable()
+        for item in self.ht.items():
+            if not other_set.contains(item[0]):
+                difference_set.set(item[0], True)
+
+        for item in other_set.ht.items():
+            if not self.contains(item[0]):
+                difference_set.set(item[0], True)
+        return difference_set
 
     def is_subset(self, other_set):
         """Returns True if other_set is a subset of this set, returns False otherwise."""
-        pass
+        for item in other_set.ht.items():
+            if not self.contains(item[0]):
+                return False
+        return True
