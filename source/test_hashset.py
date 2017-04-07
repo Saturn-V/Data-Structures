@@ -17,6 +17,11 @@ class HashSetTest(unittest.TestCase):
         assert hs.contains(5) == True
         assert hs.contains(1) == True
 
+    # def test_elements(self):
+    #     data = [8, 5, 1]
+    #     hs = HashSet(data)
+    #     elements = hs.elements()
+
     def test_size(self):
         hs = HashSet()
         assert hs.size == 0
@@ -41,7 +46,7 @@ class HashSetTest(unittest.TestCase):
         hs.remove('B')
         assert hs.contains('B') == False
         assert hs.size == 0
-        with self.assertRaises(KeyError):
+        with self.assertRaises(ValueError):
             hs.remove('D') # Key never existed
             hs.remove('A') # Key no longer exists
 
@@ -57,6 +62,10 @@ class HashSetTest(unittest.TestCase):
         assert union_hs.contains('D') == True
         assert union_hs.contains('E') == True
         assert union_hs.contains('F') == True
+
+        assert hs_a.contains('D') == False
+        assert hs_a.contains('E') == False
+        assert hs_a.contains('F') == False
 
     def test_intersection(self):
         data_a = ['A', 'B', 'C', 'D']
@@ -75,8 +84,8 @@ class HashSetTest(unittest.TestCase):
         difference_set = hs_a.difference(hs_b)
         assert difference_set.contains('A') == True
         assert difference_set.contains('B') == True
-        assert difference_set.contains('E') == True
-        assert difference_set.contains('F') == True
+        # assert difference_set.contains('E') == True
+        # assert difference_set.contains('F') == True
 
     def test_is_subset(self):
         data = ['A', 'B', 'C', 'D', 'E', 'F']

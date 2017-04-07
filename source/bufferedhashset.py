@@ -2,11 +2,12 @@
 
 from hashtable import HashTable
 
-class HashSet(object):
+class BufferedHashSet(object):
 
-    def __init__(self, elements=None):
+    def __init__(self, max_size=11, elements=None):
         """Initialize this hash set; add the given items, if any"""
         self.ht = HashTable()
+        self.max_size = max_size
         self.size = 0
         if elements:
             for element in elements:
@@ -27,7 +28,7 @@ class HashSet(object):
 
     def add(self, element):
         """Add the given element to this set"""
-        if self.ht.contains(element):
+        if self.size is not self.max_size and self.ht.contains(element):
             raise ValueError('Element already exists')
         self.ht.set(element, True)
         self.size += 1
