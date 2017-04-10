@@ -7,6 +7,7 @@ class BinaryNode(object):
         self.data = data
         self.left = None
         self.right = None
+        # self.height =
 
     def __repr__(self):
         """Return a string representation of this binary node"""
@@ -95,70 +96,86 @@ class BinarySearchTree(object):
 
     def delete(self, data):
 
-        if self.is_empty(): # If this tree is empty, get outa here
+        node = self.search(data)
+
+        if self.is_empty():
             raise ValueError('Binary Search Tree is empty.')
+        elif not node:
+            raise ValueError('Binary Search Tree does not contain value')
         else:
-            node = self.search(data)
-            if node: # If this tree isn't empty, and we found the ndoe to delete
-                parent = self._find_parent_node(data)
-                if node.data is self.root.data: # if the node we are trying to delete is the root
-                    if node.left and node.right: # if this node has both a left and a right child
-                        promoted_node = node.right
-                        while not promoted_node.is_leaf(): # search for the ndoe to be promoted
-                            promoted_node = promoted_node.left
-                        promoted_parent = self._find_parent_node(promoted_node) # get parent of promoted node
-                        promoted_parent.left = None # set it's pointer from promoted_node to none since we are moving it
+            node_parent = self._find_parent_node(data)
+            if not node.left and not node.right:
+                if node_parent:
+                    if parent.left:
+                        node_parent.left = None
+                    else:
+                        node_parent.right = None
+                else:
+                    self.root = None
+            elif node.left:
+                promoted_node = node.left
+                while not promoted_node.is_leaf():
+                    promoted_node = promoted_node.right
+                parent_promoted_node = self._find_parent_node(promoted_node.data)
+                parent_promoted_node.right = None
+                promoted_node.left = node.left
+                if node_parent:
+                    if node.data < node_parent.data:
+                        node_parent.left = promoted_node
+                    else:
+                        node_parent.right = promoted_node
+            elif node.right:
+                promoted_node = node.right
+                while not promoted_node.is_leaf():
+                    promoted_node = promoted_node.left
+                parent_promoted_node = self._find_parent_node(promoted_node.data)
+                parent_promoted_node.left = None
+                promoted_node.right = node.right
+                if node_parent:
+                    if node.data < node_parent.data:
+                        node_parent.left = promoted_node
+                    else:
+                        node_parent.right = promoted_node
+            else:
+                promoted_node = node.left
+                while not promoted_node.is_leaf():
+                    promoted_node = promoted_node.right
+                parent_promoted_node = self._find_parent_node(promoted_node.data)
+                parent_promoted_node.right = None
+                promoted_node.left = node.left
+                promoted_node_right = node.right
+                if node_parent:
+                    if node.data < node_parent.data:
+                        node_parent.left = promoted_node
+                    else:
+                        node_parent.right = promoted_node
 
-                        # make promoted_node take the place of node by giving it the children of node
-                        promoted_node.left = node.left
-                        promoted_node.right = node.right
+        # find the node we want to delete
 
-                        if node.data < parent.data: # node is in left of parent
-                            parent.left = promoted_node
-                        else: # node is in right of parent
-                            parent.right = promoted_node
+        # if this tree is empty or node doesnt exist
+            # early exit
+        # else
+            # find parent
+            # if node has no children
+                # if parent exists
+                    # set parent.(left or right) to none
+            # if node has one child
+                # go .left or .right once, then .right or .left until .left is none (half leaf)
+                # find parent of half leaf
+                # set parent half leaf.left or .right to none
+                # set half leaf.left or .right to node.left or .right
+                # if parent exists
+                    # set parent.left or .right to leaf
+            # if node has two children
+                # go .right once, then .left until we hit a leaf
+                # find parent of leaf
+                # set parent leaf.left to none
+                # set leaf.left  and .right to node.left and .right
+                # if parent exists
+                    # set parent.left or .right to leaf
 
-                    elif node.left: # if this node has only a left child
-                        promoted_node = node.left
-                        while not promoted_node.is_leaf():
-                            promoted_node = promoted_node.right
-                        promoted_parent = self._find_parent_node(promoted_node) # get parent of promoted node
-                        promoted_parent.right = None # set it's pointer from promoted_node to none since we are moving it
 
-                        # make promoted_node take the place of node by giving it the children of node
-                        promoted_node.left = node.left
 
-                        if node.data < parent.data: # node is in left of parent
-                            parent.left = promoted_node
-                        else: # node is in right of parent
-                            parent.right = promoted_node
-
-                    else: # or only a right child
-                        promoted_node = node.right
-                        while not promoted_node.is_leaf():
-                            promoted_node = promoted_node.left
-                        promoted_parent = self._find_parent_node(promoted_node) # get parent of promoted node
-                        promoted_parent.left = None # set it's pointer from promoted_node to none since we are moving it
-
-                        # make promoted_node take the place of node by giving it the children of node
-                        promoted_node.right = node.right
-
-                        if node.data < parent.data: # node is in left of parent
-                            parent.left = promoted_node
-                        else: # node is in right of parent
-                            parent.right = promoted_node
-                    # If there are any chidlren
-                        # find the node to be promoted in place of root
-                    # else set root to none
-                else: # if we are somewhere in the body of this tree
-                    # If there are any chidlren
-                        # find the node to be promoted
-                    # else set parent next to be none
-                    if node.left and node.right: # if this node has both a left and a right child
-
-                    elif node.right: # if this ndoe has only a left child
-                    else: # or only a right child
-            else: # Well the ndoe you wanna delete just doesn't exist
 
             # Search for the Node
 
