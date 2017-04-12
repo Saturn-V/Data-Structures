@@ -96,59 +96,59 @@ class BinarySearchTree(object):
 
     def delete(self, data):
 
-        node = self.search(data)
-
         if self.is_empty():
             raise ValueError('Binary Search Tree is empty.')
-        elif not node:
+
+        node = self.search(data)
+        if not node:
             raise ValueError('Binary Search Tree does not contain value')
-        else:
-            node_parent = self._find_parent_node(data)
-            if not node.left and not node.right:
-                if node_parent:
-                    if parent.left:
-                        node_parent.left = None
-                    else:
-                        node_parent.right = None
+
+        node_parent = self._find_parent_node(data)
+        if node.is_leaf():
+            if node_parent:
+                if parent.left is node:
+                    node_parent.left = None
                 else:
-                    self.root = None
-            elif node.left:
-                promoted_node = node.left
-                while not promoted_node.is_leaf():
-                    promoted_node = promoted_node.right
-                parent_promoted_node = self._find_parent_node(promoted_node.data)
-                parent_promoted_node.right = None
-                promoted_node.left = node.left
-                if node_parent:
-                    if node.data < node_parent.data:
-                        node_parent.left = promoted_node
-                    else:
-                        node_parent.right = promoted_node
-            elif node.right:
-                promoted_node = node.right
-                while not promoted_node.is_leaf():
-                    promoted_node = promoted_node.left
-                parent_promoted_node = self._find_parent_node(promoted_node.data)
-                parent_promoted_node.left = None
-                promoted_node.right = node.right
-                if node_parent:
-                    if node.data < node_parent.data:
-                        node_parent.left = promoted_node
-                    else:
-                        node_parent.right = promoted_node
+                    node_parent.right = None
             else:
-                promoted_node = node.left
-                while not promoted_node.is_leaf():
-                    promoted_node = promoted_node.right
-                parent_promoted_node = self._find_parent_node(promoted_node.data)
-                parent_promoted_node.right = None
-                promoted_node.left = node.left
-                promoted_node_right = node.right
-                if node_parent:
-                    if node.data < node_parent.data:
-                        node_parent.left = promoted_node
-                    else:
-                        node_parent.right = promoted_node
+                self.root = None
+        elif node.left and node.right:
+            promoted_node = node.left
+            while not promoted_node.is_leaf():
+                promoted_node = promoted_node.right
+            parent_promoted_node = self._find_parent_node(promoted_node.data)
+            parent_promoted_node.right = None
+            promoted_node.left = node.left
+            promoted_node_right = node.right
+            if node_parent:
+                if node.data < node_parent.data:
+                    node_parent.left = promoted_node
+                else:
+                    node_parent.right = promoted_node
+        elif node.left:
+            promoted_node = node.left
+            while not promoted_node.is_leaf():
+                promoted_node = promoted_node.right
+            parent_promoted_node = self._find_parent_node(promoted_node.data)
+            parent_promoted_node.right = None
+            promoted_node.left = node.left
+            if node_parent:
+                if node.data < node_parent.data:
+                    node_parent.left = promoted_node
+                else:
+                    node_parent.right = promoted_node
+        elif node.right:
+            promoted_node = node.right
+            while not promoted_node.is_leaf():
+                promoted_node = promoted_node.left
+            parent_promoted_node = self._find_parent_node(promoted_node.data)
+            parent_promoted_node.left = None
+            promoted_node.right = node.right
+            if node_parent:
+                if node.data < node_parent.data:
+                    node_parent.left = promoted_node
+                else:
+                    node_parent.right = promoted_node
 
         # find the node we want to delete
 
