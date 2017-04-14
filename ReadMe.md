@@ -27,6 +27,10 @@
 
 ### [Class 10](Class10.md): Monday, April 10 – Iterative Sorting Algorithms
 
+### [Class 11](Class11.md): Wednesday, April 12 – Integer Sorting Algorithms
+
+### [Class 12](Class12.md): Friday, April 14 – Divide-and-Conquer Recursion
+
 
 ## Working with this GitHub repository
 
