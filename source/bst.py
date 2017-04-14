@@ -57,17 +57,18 @@ class BinarySearchTree(object):
                 node = node.right
         return parent
 
-
     def is_empty(self):
         return self.size is 0
 
-    def insert(self, data, node=None):
+    def insert(self, data, node=False):
         new_binary_node = BinaryNode(data)
 
-        if node is None:
+        if node is False:
             node = self.root
+
         if node is None:
             self.root = new_binary_node
+            self.size += 1
             return new_binary_node
         else:
             if node.data is data:
@@ -75,20 +76,22 @@ class BinarySearchTree(object):
             elif data < node.data:
                 if node.left is None:
                     node.left = new_binary_node
+                    self.size += 1
                     return new_binary_node
                 return self.insert(data, node.left)
             else:
                 if node.right is None:
                     node.right = new_binary_node
+                    self.size += 1
                     return new_binary_node
                 return self.insert(data, node.right)
-            self.size += 1
 
-    def search(self, data, node=None):
-        if node is None:
+    def search(self, data, node=False):
+        if node is False:
             node = self.root
+
         if node is None or node.data is data:
-            return node
+            return node.data if node is not None else None
         elif data < node.data:
             return self.search(data, node.left)
         else:
@@ -201,6 +204,48 @@ class BinarySearchTree(object):
             #         <
             #         > until we cant go right anymore
             #     elif node.right:
+
+    def items_pre_order(self, node=None, items=None):
+        if node is None:
+            node = self.root
+        if items is None:
+            items = list()
+
+        items.append(node.data)
+        if node.left is not None:
+            self.items_pre_order(node.left, items)
+        if node.right is not None:
+            self.items_pre_order(node.right, items)
+
+        return items
+
+    def items_in_order(self, node=None, items=None):
+        if node is None:
+            node = self.root
+        if items is None:
+            items = list()
+
+        if node.left is not None:
+            self.items_in_order(node.left, items)
+        items.append(node.data)
+        if node.right is not None:
+            self.items_in_order(node.right, items)
+
+        return items
+
+    def items_post_order(self, node=None, items=None):
+        if node is None:
+            node = self.root
+        if items is None:
+            items = list()
+
+        if node.left is not None:
+            self.items_post_order(node.left, items)
+        if node.right is not None:
+            self.items_post_order(node.right, items)
+        items.append(node.data)
+
+        return items
 
 
 def test_binary_node():
