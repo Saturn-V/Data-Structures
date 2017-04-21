@@ -31,6 +31,10 @@
 
 ### [Class 12](Class12.md): Friday, April 14 – Divide-and-Conquer Recursion
 
+### [Class 13](Class13.md): Monday, April 17 – Recursive Algorithm Analysis
+
+### [Class 14](Class14.md): Wednesday, April 19 – Priority Queue & Heap
+
 
 ## Working with this GitHub repository
 
