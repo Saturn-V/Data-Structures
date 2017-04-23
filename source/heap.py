@@ -20,7 +20,7 @@ class MinHeap(object):
     def is_empty(self):
         """Return True if this heap is empty, or False otherwise."""
         # TODO: Check if empty based on how many items are in the list
-        ...
+        # ...
 
     def size(self):
         """Return the number of items in this heap."""
@@ -78,9 +78,12 @@ class MinHeap(object):
         # TODO: Swap this item with parent item if values are out of order
         parent_index = self._parent_index(index)
         parent_item = self.items[parent_index]
-        ...
+        # ...
         # TODO: Then bubble up again if necessary
-        ...
+        # ...
+
+        while item < parent_item:
+            self.items[index], self.items[parent_index] = parent_item, item
 
     def _bubble_down(self, index):
         """Ensure the heap-ordering property is true below the given index,
@@ -94,12 +97,12 @@ class MinHeap(object):
         item = self.items[index]
         # TODO: Determine which child item to compare this node's item to
         child_index = 0
-        ...
+        # ...
         # TODO: Swap this item with a child item if values are out of order
         child_item = self.items[child_index]
-        ...
+        # ...
         # TODO: Then bubble down again if necessary
-        ...
+        # ...
 
     def _last_index(self):
         """Return the last valid index in the underlying array of items."""
