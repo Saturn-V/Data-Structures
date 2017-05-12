@@ -26,7 +26,7 @@ class TestMinHeap(unittest.TestCase):
         assert heap.size() == 1
         assert heap.get_min() == 5
         assert heap.items == [5]
-    
+
     # def test_insert_and_get_many_items(self):
     #     heap = MinHeap()
     #     items = [9, 25, 86, 3, 29, 5, 55]
@@ -118,3 +118,6 @@ class TestMinHeap(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+"SELECT * FROM parkings WHERE ((bounding_x1 BETWEEN 37.766952 AND \(x2)) AND (bounding_y1 BETWEEN \(y1) AND \(y2))) OR ((bounding_x2 BETWEEN 37.766952 AND \(x2)) AND (bounding_y2 BETWEEN \(y1) AND \(y2))) OR (((bounding_x1 + (bounding_x2 - bounding_x1)) BETWEEN 37.766952 AND \(x2)) AND (bounding_y1 BETWEEN \(y1) AND \(y2))) OR ((bounding_x1 BETWEEN 37.766952 AND \(x2)) AND ((bounding_y1 - (bounding_y2 - bounding_y1)) BETWEEN \(y1) AND \(y2))) OR ((37.766952 BETWEEN bounding_x1 AND bounding_x2) AND (\(y1) BETWEEN bounding_y1 AND bounding_y2)) OR ((\(x2) BETWEEN bounding_x1 AND bounding_x2) AND (\(y2) BETWEEN bounding_y1 AND bounding_y2)) OR ((\(x3) BETWEEN bounding_x1 AND bounding_x2) AND (\(y3) BETWEEN bounding_y1 AND bounding_y2)) OR ((\(x4) BETWEEN bounding_x1 AND bounding_x2) AND (\(y4) BETWEEN bounding_y1 AND bounding_y2))"
